@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+void merge(int arr[],int first,int mid,int last){
+	int* ar=new int [last-first+1];
+	int i=first;
+	int j=mid+1;
+	for(int k=0;k<(last-first+1);k++)
+	{
+		if(i>mid)
+		{
+			ar[k]=arr[j];
+			j++;
+		}
+		else if(j>last)
+		{
+			ar[k]=arr[i];
+			i++;
+		}
+		else if(arr[i]<=arr[j])
+		{
+			ar[k]=arr[i];
+			i++;
+		}
+		else{
+			ar[k]=arr[j];
+			j++;
+		}
+	}
+	for (int k = 0; k < (last - first + 1); k++)
+	{
+		arr[k+first] = ar[k];
+	}
+	delete ar;
+
+}
+void mergeSort(int arr[],int first,int last){
+if(first>=last)
+	return;
+int mid=first+(last-first)/2;
+mergeSort(arr,first,mid);
+mergeSort(arr,mid+1,last);
+merge(arr,first,mid,last);
+
+}
+
+
+
+int main() {
+int ar[10]={5,9,6,3,5,8,7,4,1,19};
+mergeSort(ar,0,9);
+
+for (int i=0;i<10;i++)
+{
+	cout<<ar[i]<<" ";
+}
+
+}
